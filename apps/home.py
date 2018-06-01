@@ -24,6 +24,7 @@ Avoid a Satyam like scam by looking into signs of financial manipulations. All i
 In near future we aim to add the following features
 * Stock Valuation
 * Insider Trading data
+* Bulk Deals and Block Deals
 * Annual Statement Ananlysis using Machine Learning and AI
 * US equity data
 ''')

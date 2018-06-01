@@ -3,7 +3,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 from app import app, server
-from apps import app1_charts1, app2_charts2, home, macro
+from apps import app1_charts1, app2_charts2, home, macro, watchlist
 
 #%%
 app.css.append_css({
@@ -29,6 +29,7 @@ app.layout = html.Div([
             html.Div([
                 html.Div(dcc.Link('   Home   ', href='/',  className="link"), className = "button"),
                 html.Div(dcc.Link('   Stocks   ', href='/FundamentalCharts',className="link"),  className="button"),
+                html.Div(dcc.Link('   Watchlist   ', href='/Watchlist',className="link"),  className="button"),
                 html.Div(dcc.Link('   Macro   ', href='/Macro',className="link"),  className="button"),
                 html.Div(dcc.Link('   Backtest   ', href='/Backtest', className="link"),  className="button"),
 
@@ -47,6 +48,8 @@ def display_page(pathname):
          return home.layout
     if pathname == '/FundamentalCharts':
          return app1_charts1.layout
+    if pathname == '/Watchlist':
+         return watchlist.layout   
     elif pathname == '/Backtest':
          return app2_charts2.layout
     elif pathname == '/Macro':
