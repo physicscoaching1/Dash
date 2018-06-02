@@ -3,7 +3,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 from app import app, server
-from apps import app1_charts1, app2_charts2, home, macro, watchlist
+from apps import fundamental, app2_charts2, home, macro, watchlist
 
 #%%
 app.css.append_css({
@@ -47,7 +47,7 @@ def display_page(pathname):
     if pathname == '/':
          return home.layout
     if pathname == '/FundamentalCharts':
-         return app1_charts1.layout
+         return fundamental.layout
     if pathname == '/Watchlist':
          return watchlist.layout   
     elif pathname == '/Backtest':
