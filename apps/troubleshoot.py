@@ -41,7 +41,7 @@ twoupdirectory = os.path.dirname(oneupdirectory)
 
 path = oneupdirectory
 stockdatapath = os.path.join(oneupdirectory, 'screener', 'data', 'Annual')
-TTMpath = os.path.join(oneupdirectory, 'screener', 'data', 'TTM')
+TTMpath = os.path.join(oneupdirectory, 'screener', 'data', 'Annual')
 
 #%%
 
@@ -99,8 +99,7 @@ def Profitability_Graph(input_data):
     stockdatafilename = nsesymbol + '.csv'
     
     stockdata = pd.read_csv(os.path.join(stockdatapath,stockdatafilename), index_col = 0, parse_dates = True)
-    TTMdata = pd.read_csv(os.path.join(TTMpath,stockdatafilename), usecols=['Stock P/E', 'Market Cap.', 'PEG Ratio', 'Dividend Yield', 'Promoter holding', 'Pledged percentage', 'Change in promoter holding', 'Change in promoter holding 3Years'])
-    
+    TTMdata = pd.read_csv(os.path.join(TTMpath,stockdatafilename))
     
     stockdata.index = stockdata.index.date
     
@@ -117,8 +116,32 @@ def Profitability_Graph(input_data):
 
     return html.Div(children = [
             
+            html.Div( children=[ html.Div(children=[html.H5('Select Stock:', style = style2),
+                                               #html.H4('GlobalInvestor', style = websitenamestyle)
+                                                                   ], className="three columns"),
+                            #dcc.Input(id='input', value='', type='text'),
+                                                 html.Div(children=[ dcc.Graph(
+                                                                        id='MarketCap',
+                                                                        figure={
+                                                                            'data': [
+                                                                                        {'x': ['Market Cap'], 'y': TTMdata['Current Price'], 'type': 'scatter', 'name': 'Market Cap'},
 
-     
+                                                                                    ],
+                                                                            'layout': {
+                                                                                'title': 'Price Action'
+                                                                                      }
+                                                                            
+                                                                                }
+                                                                            ),
+                                               #html.H4('GlobalInvestor', style = websitenamestyle)
+                                                                   ], className="six columns"),
+                        #    dcc.Dropdown(
+                        #        id='input',
+                        #        options=[{'label': i, 'value': i} for i in available_stocks],
+                        #        #value='Reliance Industries Limited'
+                        #    ),
+                                                ], className="row"
+                    ),     
             dcc.Graph(
                 id='Price_Chart',
                 figure={
@@ -132,132 +155,6 @@ def Profitability_Graph(input_data):
                               }
                     
                         }
-                    ),
-    
-             html.Div(children=[html.Div(children=[ dcc.Graph(
-                                                            id='Stock_PE',
-                                                            figure={
-                                                                'data': [
-                                                                            {'x': ['Stock PE'], 'y': TTMdata['Stock P/E'], 'type': 'bar', 'name': 'Stock PE'},
-
-                                                                        ],
-                                                                'layout': {
-                                                                    'title': 'Stock P_E'
-                                                                          }
-                                                                
-                                                                    }
-                                                                ),
-                                                   ], className="three columns"),
-
-                                     html.Div(children=[ dcc.Graph(
-                                                            id='MarketCap',
-                                                            figure={
-                                                                'data': [
-                                                                            {'x': ['Market Cap'], 'y': TTMdata['Market Cap.'], 'type': 'bar', 'name': 'Market Cap-Crore'},
-
-                                                                        ],
-                                                                'layout': {
-                                                                    'title': 'Market Cap-Crore'
-                                                                          }
-                                                                
-                                                                    }
-                                                                ),
-                                                   ], className="three columns"),
-
-                                     html.Div(children=[ dcc.Graph(
-                                                            id='PEG',
-                                                            figure={
-                                                                'data': [
-                                                                            {'x': ['PEG'], 'y': TTMdata['PEG Ratio'], 'type': 'bar', 'name': 'PEG'},
-
-                                                                        ],
-                                                                'layout': {
-                                                                    'title': 'PEG Ratio'
-                                                                          }
-                                                                
-                                                                    }
-                                                                ),
-                                                   ], className="three columns"),
-
-                                     html.Div(children=[ dcc.Graph(
-                                                            id='DividendYield',
-                                                            figure={
-                                                                'data': [
-                                                                            {'x': ['Dividend Yield'], 'y': TTMdata['Dividend Yield'], 'type': 'bar', 'name': 'Dividend Yield'},
-
-                                                                        ],
-                                                                'layout': {
-                                                                    'title': 'Dividend Yield'
-                                                                          }
-                                                                
-                                                                    }
-                                                                ),
-                               #html.H4('GlobalInvestor', style = websitenamestyle)
-                                                   ], className="three columns"),   
-                                ], className="row"
-                    ),
-    
-             html.Div(children=[html.Div(children=[ dcc.Graph(
-                                                            id='PromotorHolding',
-                                                            figure={
-                                                                'data': [
-                                                                            {'x': ['Promoter holding'], 'y': TTMdata['Promoter holding'], 'type': 'bar', 'name': 'Promoter holding'},
-
-                                                                        ],
-                                                                'layout': {
-                                                                    'title': 'Promoter Holding Percentage'
-                                                                          }
-                                                                
-                                                                    }
-                                                                ),
-                                                   ], className="three columns"),
-
-                                     html.Div(children=[ dcc.Graph(
-                                                            id='Pledgedpercentage',
-                                                            figure={
-                                                                'data': [
-                                                                            {'x': ['Pledged Percentage'], 'y': TTMdata['Pledged percentage'], 'type': 'bar', 'name': 'Pledged percentage'},
-
-                                                                        ],
-                                                                'layout': {
-                                                                    'title': 'Pledged Percentage'
-                                                                          }
-                                                                
-                                                                    }
-                                                                ),
-                                                   ], className="three columns"),
-
-                                     html.Div(children=[ dcc.Graph(
-                                                            id='Changeinpromoterholding',
-                                                            figure={
-                                                                'data': [
-                                                                            {'x': ['Change in Promoter Holding- 1 year'], 'y': TTMdata['Change in promoter holding'], 'type': 'bar', 'name': 'Change in promoter holding'},
-
-                                                                        ],
-                                                                'layout': {
-                                                                    'title': 'Change in Promoter Holding- 1 year'
-                                                                          }
-                                                                
-                                                                    }
-                                                                ),
-                                                   ], className="three columns"),
-
-                                     html.Div(children=[ dcc.Graph(
-                                                            id='Change_in_promoter_holding_3Years',
-                                                            figure={
-                                                                'data': [
-                                                                            {'x': ['Change in Promoter Holding-3Years'], 'y': TTMdata['Change in promoter holding 3Years'], 'type': 'bar', 'name': 'Change in promoter holding 3Years'},
-
-                                                                        ],
-                                                                'layout': {
-                                                                    'title': 'Change in Promoter Holding-3Years:'
-                                                                          }
-                                                                
-                                                                    }
-                                                                ),
-                               #html.H4('GlobalInvestor', style = websitenamestyle)
-                                                   ], className="three columns"),   
-                                ], className="row"
                     ),
             
             

@@ -6,7 +6,12 @@ import os
 
 from app import app
 
-path=r'C:\Users\achowdhury143777\OneDrive - Applied Materials\scripts\NSE_STOCKLIST'
+cwd = os.getcwd()
+oneupdirectory = os.path.dirname(cwd)
+twoupdirectory = os.path.dirname(oneupdirectory)
+
+path = oneupdirectory
+stockdatapath = os.path.join(oneupdirectory, 'screener', 'data', 'Annual')
 #path=r'/home/abhishek_iitkgp/stocklist'
 stocklistfilename  = 'EQUITY_L_NSE.csv'
 errorfilename= 'error2.csv'

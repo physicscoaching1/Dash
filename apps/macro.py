@@ -16,9 +16,13 @@ style1 = {'background-color': 'Lavender', 'border-bottom': '0.5pt solid Blue', '
 style2 = {'textAlign': 'right'}
 
 
+cwd = os.getcwd()
+oneupdirectory = os.path.dirname(cwd)
+twoupdirectory = os.path.dirname(oneupdirectory)
 
-path=r'C:\Users\achowdhury143777\OneDrive - Applied Materials\scripts\NSE_STOCKLIST'
-#path=r'/home/abhishek_iitkgp/stocklist'
+path = oneupdirectory
+stockdatapath = os.path.join(oneupdirectory, 'screener', 'data', 'Annual')
+
 stocklistfilename  = 'EQUITY_L_NSE.csv'
 errorfilename= 'error2.csv'
 stocklist = pd.read_csv(os.path.join(path,stocklistfilename), usecols=['SYMBOL', 'NAME OF COMPANY'], encoding='latin1' )
@@ -61,9 +65,6 @@ layout = html.Div(children=[
 def Profitability_Graph(input_data):
 
     nsesymbol = stocklist[stocklist['NAME OF COMPANY']==input_data]['SYMBOL'].iloc[0]
-    
-    stockdatapath = r'C:\Users\achowdhury143777\OneDrive - Applied Materials\scripts\Fundamental\ScreenerFundamental_Annual'
-    #stockdatapath = r'/home/abhishek_iitkgp/data/screener/Annual'
     
     
     stockdatafilename = nsesymbol + '.csv'
